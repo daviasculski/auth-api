@@ -1,1 +1,3 @@
 # auth-api
+
+Projeto que implementa uma api de autenticação de usuario...

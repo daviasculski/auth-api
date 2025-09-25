@@ -22,4 +22,5 @@ public class AuthController {
         User registeredUser=userService.registerUser(registrationDTO.getUsername(), registrationDTO. getPassword() );
         return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);    
     }
+
 }

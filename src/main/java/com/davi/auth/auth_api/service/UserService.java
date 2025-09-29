@@ -23,4 +23,20 @@ public class UserService {
 
         return userRepository.save(newUser);
     }
+
+    public User authenticateUser(String username, String password){
+        User user =userRepository.findByUsername(username)
+            .orElseThrow(() -> new RuntimeException("Usuario nao encontrado."));
+
+        if(!passwordEncoder.matches(password, user.getPassword())){
+            throw new RuntimeException("Senha incorreta");
+        }
+
+        //se e o usuario e senha estiverem ok,
+        //retorna o usuario
+
+        return user;
+    }
+
+
 }

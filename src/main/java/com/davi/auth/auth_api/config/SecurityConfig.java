@@ -14,11 +14,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable()) // Desabilita o CSRF para simplificar o teste da API
-            .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers(new AntPathRequestMatcher("/api/auth/register")).permitAll() // Permite acesso público a essa rota
-                .anyRequest().authenticated() // Protege todas as outras rotas
-            );
+                .csrf(csrf -> csrf.disable()) // Desabilita o CSRF para simplificar o teste da API
+                .authorizeHttpRequests(authorize -> authorize
+                        // Adiciona a rota de login à lista de acesso público
+                        .requestMatchers(
+                                new AntPathRequestMatcher("/api/auth/register"),
+                                new AntPathRequestMatcher("/api/auth/login"))
+                        .permitAll()
+                        .anyRequest().authenticated() // Protege todas as outras rotas
+                );
         return http.build();
     }
 
